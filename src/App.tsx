@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import "./App.css";
+import heroImage from "./assets/hero.png";
 
 const L = {
   email: "navindu691@gmail.com",
@@ -7,6 +8,7 @@ const L = {
   github: "https://github.com/NavinduRanasinghe691",
 };
 const dv = (n: string) => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${n}.svg`;
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
 const SKILLS: [string, string][] = [
   ["Java", "java/java-original"], ["Python", "python/python-original"], ["JavaScript", "javascript/javascript-original"],
@@ -94,7 +96,7 @@ function Intro({ leaving, onDone }: { leaving: boolean; onDone: () => void }) {
   }, []);
   return (
     <div className={`intro${leaving ? " out" : ""}`} role="dialog" aria-label="Introduction">
-      <img className="intro-bg" src="/navindu.jpg" alt="" onError={(e) => (e.currentTarget.style.display = "none")} />
+      <img className="intro-bg" src={publicAsset("navindu.jpg")} alt="" onError={(e) => (e.currentTarget.style.display = "none")} />
       <i className="bar-t" /><i className="bar-b" /><div className="grain" /><div className="beam" />
       <button className="skip" onClick={onDone}>Skip intro</button>
       <svg className="n-draw" width="110" height="110" viewBox="0 0 64 64" aria-hidden="true">
@@ -133,7 +135,7 @@ export default function App() {
   };
   useEffect(() => { document.documentElement.dataset.theme = dark ? "dark" : "light"; try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch { /* ignore */ } }, [dark]);
   useEffect(() => {
-    fetch("/cv.pdf", { method: "HEAD" }).then((r) => setHasCv(r.ok && (r.headers.get("content-type") || "").includes("pdf"))).catch(() => setHasCv(false));
+    fetch(publicAsset("cv.pdf"), { method: "HEAD" }).then((r) => setHasCv(r.ok && (r.headers.get("content-type") || "").includes("pdf"))).catch(() => setHasCv(false));
   }, []);
   useEffect(() => { document.body.style.overflow = intro ? "hidden" : ""; if (!intro) document.documentElement.dataset.ready = "1"; }, [intro]);
   useEffect(() => {
@@ -178,7 +180,7 @@ export default function App() {
         </nav>
         <div className="nav-right">
           <button className="toggle" aria-label="Toggle dark mode" aria-pressed={dark} onClick={() => setDark(!dark)}>{dark ? "☾" : "☀"}</button>
-          {hasCv && <a className="btn dark cv" href="/cv.pdf" download>Download CV</a>}
+          {hasCv && <a className="btn dark cv" href={publicAsset("cv.pdf")} download>Download CV</a>}
         </div>
       </header>
 
@@ -191,7 +193,7 @@ export default function App() {
             </div>
             <figure className="arch">
               <span className="ghost-n" aria-hidden="true">N</span>
-              <img src="/navindu.jpg" alt="Navindu Ranasinghe standing in a cave opening, looking out over Sri Lankan hills" width="900" height="1600" decoding="async" onError={(e) => (e.currentTarget.style.display = "none")} />
+              <img src={heroImage} alt="Navindu Ranasinghe standing in a cave opening, looking out over Sri Lankan hills" width="900" height="1600" decoding="async" onError={(e) => (e.currentTarget.style.display = "none")} />
               <i className="paint" aria-hidden="true" />
               <div className="codefx" aria-hidden="true"><pre>{CODE + CODE}</pre></div>
             </figure>
@@ -220,7 +222,7 @@ export default function App() {
 
         <section id="about" className="about">
           <div className="about-art">
-            <img src="/navindu.jpg" alt="" width="320" height="380" loading="lazy" decoding="async" onError={(e) => (e.currentTarget.style.display = "none")} />
+            <img src={publicAsset("navindu.jpg")} alt="" width="320" height="380" loading="lazy" decoding="async" onError={(e) => (e.currentTarget.style.display = "none")} />
             <div className="glass uni a1"><b>NSBM</b> Green University</div>
             <div className="glass uni a2"><small>BSc (Hons)</small> Computer Science</div>
             <span className="script">Keep Growing</span>
