@@ -273,7 +273,7 @@ export default function App() {
           </div>
           <h3 className="sub">Beyond code</h3>
           <ul className="chips2">{INTERESTS.map((x) => <li key={x}>{x}</li>)}</ul>
-          <p className="muted">YouTube: Navindu J Ranasinghe · Facebook page: MixMood</p>
+          <p className="muted">YouTube: Navindu J Ranasinghe</p>
         </section>
 
         <section className="reel" aria-label="Showreel">
